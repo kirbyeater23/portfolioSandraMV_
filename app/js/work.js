@@ -2,8 +2,9 @@
   const srcCard = proyecto.mediaCard || proyecto.media;
   const pos = proyecto.objectPosition || "center";
   const fit = proyecto.fitImagen || "cover";
+  const esVideoCard = srcCard.endsWith(".mp4");
   const contenidoMedia =
-    proyecto.tipoMedia === "video"
+    esVideoCard
       ? `<video src="${srcCard}" muted loop playsinline style="object-fit:${fit};object-position:${pos}"></video>`
       : `<img src="${srcCard}" alt="${proyecto.nombre}" style="object-fit:${fit};object-position:${pos}" />`;
   const imagenStyle = proyecto.alturaImagen

@@ -1,8 +1,9 @@
 ﻿function crearCardProyecto(proyecto) {
   const srcCard = proyecto.mediaCard || proyecto.media;
   const pos = proyecto.objectPosition || "center";
+  const esVideoCard = srcCard.endsWith(".mp4");
   const contenidoMedia =
-    proyecto.tipoMedia === "video"
+    esVideoCard
       ? `<video src="${srcCard}" muted loop playsinline autoplay style="object-position:${pos}"></video>`
       : `<img src="${srcCard}" alt="${proyecto.nombre}" style="object-position:${pos}" />`;
 
@@ -59,7 +60,10 @@ window.irSiguienteProyecto = (id) => {
 function mediaHtml(src, alt) {
   if (!src) return "";
   return src.endsWith(".mp4")
-    ? `<video src="${src}" muted loop playsinline autoplay></video>`
+    ? `<div class="mediaVideo">
+        <video src="${src}" muted loop playsinline autoplay></video>
+        <button class="botonAudioVideo" type="button" aria-label="Activar audio" data-audio-label="off">AUDIO OFF</button>
+      </div>`
     : `<img src="${src}" alt="${alt || ""}" />`;
 }
 
@@ -173,14 +177,24 @@ function crearModalHTML(p) {
 
 const lightbox = document.createElement("div");
 lightbox.className = "visorGaleria";
-lightbox.innerHTML = '<img class="visorGaleriaImg" src="" alt="" />';
+lightbox.innerHTML = `
+  <img class="visorGaleriaImg" src="" alt="" />
+  <video class="visorGaleriaVideo" src="" controls playsinline></video>
+`;
 document.body.appendChild(lightbox);
 
 function cerrarLightbox() {
   lightbox.classList.remove("visorGaleriaVisible");
+  const video = lightbox.querySelector(".visorGaleriaVideo");
+  video.pause();
+  video.removeAttribute("src");
+  video.load();
 }
 
 lightbox.addEventListener("click", cerrarLightbox);
+lightbox.querySelector(".visorGaleriaVideo").addEventListener("click", (e) => {
+  e.stopPropagation();
+});
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") cerrarLightbox();
 });
@@ -205,10 +219,58 @@ function ModalProyecto() {
   };
 
   const clicGaleria = (e) => {
-    const img = e.target.closest(".modalGaleriaElemento img");
-    if (!img) return;
+    const botonAudio = e.target.closest(".botonAudioVideo");
+    if (botonAudio) {
+      e.stopPropagation();
+      const video = botonAudio.closest(".mediaVideo")?.querySelector("video");
+      if (!video) return;
+
+      const activarAudio = video.muted;
+      document.querySelectorAll(".mediaVideo video").forEach((otroVideo) => {
+        if (otroVideo !== video) otroVideo.muted = true;
+      });
+      document.querySelectorAll(".botonAudioVideo").forEach((boton) => {
+        if (boton !== botonAudio) {
+          boton.textContent = "AUDIO OFF";
+          boton.setAttribute("aria-label", "Activar audio");
+          boton.dataset.audioLabel = "off";
+        }
+      });
+
+      video.muted = !activarAudio;
+      video.volume = activarAudio ? 1 : video.volume;
+      botonAudio.textContent = activarAudio ? "AUDIO ON" : "AUDIO OFF";
+      botonAudio.setAttribute(
+        "aria-label",
+        activarAudio ? "Silenciar audio" : "Activar audio",
+      );
+      botonAudio.dataset.audioLabel = activarAudio ? "on" : "off";
+      video.play();
+      return;
+    }
+
+    const media = e.target.closest(".modalGaleriaElemento img, .modalGaleriaElemento video");
+    if (!media) return;
     e.stopPropagation();
-    lightbox.querySelector(".visorGaleriaImg").src = img.src;
+    const imgLightbox = lightbox.querySelector(".visorGaleriaImg");
+    const videoLightbox = lightbox.querySelector(".visorGaleriaVideo");
+
+    if (media.tagName.toLowerCase() === "video") {
+      imgLightbox.removeAttribute("src");
+      imgLightbox.style.display = "none";
+      videoLightbox.src = media.currentSrc || media.src;
+      videoLightbox.style.display = "block";
+      videoLightbox.muted = false;
+      videoLightbox.play();
+    } else {
+      videoLightbox.pause();
+      videoLightbox.removeAttribute("src");
+      videoLightbox.load();
+      videoLightbox.style.display = "none";
+      imgLightbox.src = media.src;
+      imgLightbox.style.display = "block";
+    }
+
     lightbox.classList.add("visorGaleriaVisible");
   };
 
