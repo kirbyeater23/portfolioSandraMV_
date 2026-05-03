@@ -17,10 +17,10 @@
 
 .modalCerrar {
   position: fixed;
-  top: var(--alto-nav);
-  align-self: flex-end;
-  z-index: 115;
-  background: none;
+  top: calc(var(--alto-nav) + 0.5rem);
+  right: 0.75rem;
+  z-index: 350;
+  background: rgba(255, 255, 255, 0.85);
   border: none;
   font-size: 28px;
   font-weight: 900;
@@ -305,15 +305,19 @@
   }
 
   .modalCerrar {
-    top: 0;
+    top: calc(var(--alto-nav) + 0.25rem);
+    right: 0.75rem;
   }
 
-  .modalPortadaMedio {
-    height: auto;
-
-    img, video {
+  .modalPortada {
+    .modalPortadaMedio {
       height: auto;
-      object-fit: unset;
+
+      img,
+      video {
+        height: auto;
+        object-fit: unset;
+      }
     }
   }
 
