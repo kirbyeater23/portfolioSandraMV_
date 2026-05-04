@@ -18,9 +18,10 @@
 .modalCerrar {
   position: sticky;
   top: 0.5rem;
-  right: 0.75rem;
+  right: auto;
   z-index: 350;
   align-self: flex-end;
+  margin-left: auto;
   background: none;
   border: none;
   font-size: 28px;
@@ -307,7 +308,7 @@
 
   .modalCerrar {
     top: 0.25rem;
-    right: 0.75rem;
+    right: auto;
   }
 
   .modalPortada {
