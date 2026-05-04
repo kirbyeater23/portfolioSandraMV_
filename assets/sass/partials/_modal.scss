@@ -366,6 +366,34 @@
     }
   }
 
+  .modalConceptoRejilla .modalConceptoImagen,
+  .modalProceso .modalProcesoImagen,
+  .modalGaleriaRejilla .modalGaleriaElemento {
+    aspect-ratio: unset;
+    height: auto;
+    overflow: visible;
+
+    img,
+    video {
+      width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+    }
+
+    .mediaVideo {
+      height: auto;
+      overflow: visible;
+
+      video {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+      }
+    }
+  }
+
   .modalInfoBasica {
     grid-template-columns: 1fr 1fr;
 
@@ -467,6 +495,34 @@
       overflow: visible;
 
       video {
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+      }
+    }
+  }
+
+  .modalConceptoRejilla .modalConceptoImagen,
+  .modalProceso .modalProcesoImagen,
+  .modalGaleriaRejilla .modalGaleriaElemento {
+    aspect-ratio: unset;
+    height: auto;
+    overflow: visible;
+
+    img,
+    video {
+      width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+    }
+
+    .mediaVideo {
+      height: auto;
+      overflow: visible;
+
+      video {
+        width: 100%;
         height: auto;
         max-height: none;
         object-fit: contain;
