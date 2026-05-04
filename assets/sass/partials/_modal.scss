@@ -342,8 +342,7 @@
   }
 
   .modalConceptoImagen,
-  .modalProcesoImagen,
-  .modalGaleriaElemento {
+  .modalProcesoImagen {
     aspect-ratio: unset;
     height: auto;
     overflow: visible;
@@ -366,9 +365,34 @@
     }
   }
 
-  .modalConceptoRejilla .modalConceptoImagen,
-  .modalProceso .modalProcesoImagen,
   .modalGaleriaRejilla .modalGaleriaElemento {
+    aspect-ratio: 4/3;
+    height: auto;
+    overflow: hidden;
+
+    img,
+    video {
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      object-fit: cover;
+      display: block;
+    }
+
+    .mediaVideo {
+      height: 100%;
+      overflow: hidden;
+
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .modalConceptoRejilla .modalConceptoImagen,
+  .modalProceso .modalProcesoImagen {
     aspect-ratio: unset;
     height: auto;
     overflow: visible;
@@ -419,6 +443,61 @@
 
   .modalGaleriaRejilla {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .modalConceptoRejilla .modalConceptoImagen,
+  .modalProceso .modalProcesoImagen {
+    aspect-ratio: unset;
+    height: auto;
+    overflow: visible;
+
+    img,
+    video {
+      width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+    }
+
+    .mediaVideo {
+      height: auto;
+      overflow: visible;
+
+      video {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+      }
+    }
+  }
+
+  .modalGaleriaRejilla .modalGaleriaElemento {
+    aspect-ratio: 4/3;
+    height: auto;
+    overflow: hidden;
+
+    img,
+    video {
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      object-fit: cover;
+      display: block;
+    }
+
+    .mediaVideo {
+      height: 100%;
+      overflow: hidden;
+
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
   }
 }
 
@@ -487,8 +566,7 @@
   }
 
   .modalConceptoImagen,
-  .modalProcesoImagen,
-  .modalGaleriaElemento {
+  .modalProcesoImagen {
     overflow: visible;
 
     .mediaVideo {
@@ -503,8 +581,7 @@
   }
 
   .modalConceptoRejilla .modalConceptoImagen,
-  .modalProceso .modalProcesoImagen,
-  .modalGaleriaRejilla .modalGaleriaElemento {
+  .modalProceso .modalProcesoImagen {
     aspect-ratio: unset;
     height: auto;
     overflow: visible;
@@ -526,6 +603,32 @@
         height: auto;
         max-height: none;
         object-fit: contain;
+      }
+    }
+  }
+
+  .modalGaleriaRejilla .modalGaleriaElemento {
+    aspect-ratio: 4/3;
+    height: auto;
+    overflow: hidden;
+
+    img,
+    video {
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      object-fit: cover;
+      display: block;
+    }
+
+    .mediaVideo {
+      height: 100%;
+      overflow: hidden;
+
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
   }
