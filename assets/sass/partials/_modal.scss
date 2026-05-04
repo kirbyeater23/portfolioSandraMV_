@@ -346,10 +346,23 @@
   .modalGaleriaElemento {
     aspect-ratio: unset;
     height: auto;
+    overflow: visible;
 
     img, video {
       height: auto;
       object-fit: unset;
+    }
+
+    .mediaVideo {
+      height: auto;
+      overflow: visible;
+
+      video {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+      }
     }
   }
 
@@ -443,6 +456,22 @@
   .modalGaleriaRejilla {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
+  }
+
+  .modalConceptoImagen,
+  .modalProcesoImagen,
+  .modalGaleriaElemento {
+    overflow: visible;
+
+    .mediaVideo {
+      overflow: visible;
+
+      video {
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+      }
+    }
   }
 
   .modalSiguiente {
