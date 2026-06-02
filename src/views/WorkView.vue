@@ -129,7 +129,7 @@ function onMouseOver(e) {
 
 onMounted(async () => {
   document.title = 'Work | Sandra Martínez Villacorta'
-  const res = await fetch('/app/data/proyectos.json')
+  const res = await fetch(import.meta.env.BASE_URL + 'app/data/proyectos.json')
   const data = await res.json()
   proyectos.value = data
   modalState.todosProyectos = data

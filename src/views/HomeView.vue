@@ -102,7 +102,7 @@ onUnmounted(() => cleanup())
 
 onMounted(async () => {
   document.title = 'Sandra Martínez Villacorta | Kirbyeater'
-  const res = await fetch('/app/data/proyectos.json')
+  const res = await fetch(import.meta.env.BASE_URL + 'app/data/proyectos.json')
   const proyectos = await res.json()
   modalState.todosProyectos = proyectos
   ultimos.value = proyectos.slice(0, 3)
