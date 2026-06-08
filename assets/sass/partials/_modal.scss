@@ -1,7 +1,7 @@
 .modalSuperposicion {
   display: none;
   position: fixed;
-  top: 0;
+  top: var(--alto-nav);
   right: 0;
   bottom: 0;
   left: 0;
@@ -72,7 +72,7 @@
 
   .modalPortadaMedio {
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - var(--alto-nav));
     overflow: hidden;
 
     img,
@@ -302,10 +302,6 @@
 }
 
 @media (max-width: 800px) {
-  .modalSuperposicion {
-    top: var(--alto-nav);
-  }
-
   .modalCerrar {
     top: 0.25rem;
     right: auto;

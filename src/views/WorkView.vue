@@ -93,6 +93,8 @@ function esVideoCard(p) { return srcCard(p).endsWith('.mp4') }
 
 async function cambiarFiltro(valor) {
   filtroActivo.value = valor
+  cardActual = null
+  if (pensante) gsap.to(pensante, { opacity: 0, scale: 0.85, duration: 0.1 })
   await nextTick()
   aplicarAnimaciones()
 }
@@ -129,6 +131,18 @@ function onMouseOver(e) {
 
 onMounted(async () => {
   document.title = 'Work | Sandra Martínez Villacorta'
+
+  // Pensante: se inicializa antes del fetch, igual que en el original
+  if (!window.matchMedia('(pointer: coarse)').matches) {
+    pensante = document.createElement('img')
+    pensante.src = 'assets/images/pensante.png'
+    pensante.style.cssText = 'position:fixed;top:0;left:0;width:160px;height:auto;pointer-events:none;opacity:0;z-index:50;'
+    document.body.appendChild(pensante)
+    gsap.set(pensante, { x: 0, y: 0, scale: 0.85 })
+    document.addEventListener('mousemove', onMouseMove)
+    document.addEventListener('mouseover', onMouseOver)
+  }
+
   const res = await fetch(import.meta.env.BASE_URL + 'app/data/proyectos.json')
   const data = await res.json()
   proyectos.value = data
@@ -137,18 +151,6 @@ onMounted(async () => {
   await nextTick()
   aplicarAnimaciones()
   aplicarScramble()
-
-  // Pensante character (desktop only)
-  if (!window.matchMedia('(pointer: coarse)').matches) {
-    pensante = document.createElement('img')
-    pensante.src = '/assets/images/pensante.png'
-    pensante.style.cssText = 'position:fixed;top:0;left:0;width:160px;height:auto;pointer-events:none;opacity:0;z-index:50;'
-    document.body.appendChild(pensante)
-    gsap.set(pensante, { x: 0, y: 0, scale: 0.85 })
-
-    document.addEventListener('mousemove', onMouseMove)
-    document.addEventListener('mouseover', onMouseOver)
-  }
 })
 
 onUnmounted(() => {

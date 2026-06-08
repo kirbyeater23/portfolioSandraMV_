@@ -1,16 +1,16 @@
 <template>
   <div :class="['menuMovilOverlay', { menuMovilVisible: menuAbierto }]">
     <div class="menuMovilCabecera">
-      <RouterLink to="/"><img class="imagenLogo" src="/assets/images/imagenLogo.webp" alt="Logo" /></RouterLink>
+      <RouterLink to="/" @click="cerrarCapas"><img class="imagenLogo" src="/assets/images/imagenLogo.webp" alt="Logo" /></RouterLink>
       <button class="menuMovilCerrar" aria-label="Cerrar menú" @click="cerrar">×</button>
     </div>
     <hr class="menuMovilSeparador" />
     <div class="menuMovilCuerpo">
       <nav class="menuMovilNav">
-        <RouterLink to="/" :class="['menuMovilEnlace', { menuMovilActivo: ruta === '/' }]" @click="cerrar">HOME</RouterLink>
-        <RouterLink to="/work" :class="['menuMovilEnlace', { menuMovilActivo: ruta === '/work' }]" @click="cerrar">WORK</RouterLink>
-        <RouterLink to="/about" :class="['menuMovilEnlace', { menuMovilActivo: ruta === '/about' }]" @click="cerrar">ABOUT</RouterLink>
-        <RouterLink to="/contact" :class="['menuMovilEnlace menuMovilEnlaceContact', { menuMovilActivo: ruta === '/contact' }]" @click="cerrar">CONTACT</RouterLink>
+        <RouterLink to="/" :class="['menuMovilEnlace', { menuMovilActivo: ruta === '/' }]" @click="cerrarCapas">HOME</RouterLink>
+        <RouterLink to="/work" :class="['menuMovilEnlace', { menuMovilActivo: ruta === '/work' }]" @click="cerrarCapas">WORK</RouterLink>
+        <RouterLink to="/about" :class="['menuMovilEnlace', { menuMovilActivo: ruta === '/about' }]" @click="cerrarCapas">ABOUT</RouterLink>
+        <RouterLink to="/contact" :class="['menuMovilEnlace menuMovilEnlaceContact', { menuMovilActivo: ruta === '/contact' }]" @click="cerrarCapas">CONTACT</RouterLink>
       </nav>
       <p class="menuMovilAsterisco">*</p>
       <div class="menuMovilServicios">
@@ -36,8 +36,15 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useMobileMenu } from '../composables/useMobileMenu.js'
+import { useModal } from '../composables/useModal.js'
 
 const route = useRoute()
 const ruta = computed(() => route.path)
 const { menuAbierto, cerrar } = useMobileMenu()
+const { cerrarModal } = useModal()
+
+function cerrarCapas() {
+  cerrar()
+  cerrarModal()
+}
 </script>
